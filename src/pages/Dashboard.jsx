@@ -48,6 +48,33 @@ export default function Dashboard() {
         }
     };
 
+    // Helper to map activity type to route
+    const getActivityRoute = (activityType, activityName) => {
+        const type = activityType?.toLowerCase() || '';
+
+        // Map activity names/content to routes
+        if (activityName?.toLowerCase().includes('letter hunt') || type === 'game') {
+            return '/activity/letter-hunt';
+        }
+        if (activityName?.toLowerCase().includes('phonics') || activityName?.toLowerCase().includes('sound')) {
+            return '/activity/phonics-match';
+        }
+        if (activityName?.toLowerCase().includes('tracing') || activityName?.toLowerCase().includes('trace')) {
+            return '/activity/letter-tracing';
+        }
+        if (activityName?.toLowerCase().includes('reading') || activityName?.toLowerCase().includes('story')) {
+            return '/activity/letter-hunt'; // Default to letter hunt for now
+        }
+
+        // Fallback by type
+        if (type === 'game') return '/activity/letter-hunt';
+        if (type === 'tracing') return '/activity/letter-tracing';
+        if (type === 'video' || type === 'reading') return '/activity/phonics-match';
+
+        // Default fallback
+        return '/activity/letter-hunt';
+    };
+
     // Always available activities
     const mainActivities = [
         {
@@ -106,7 +133,7 @@ export default function Dashboard() {
                         type: act.type,
                         completed: act.completed,
                         icon: getIcon(act.icon_type),
-                        link: act.type === 'Game' ? '/activity/letter-hunt' : null
+                        link: getActivityRoute(act.type, act.title)
                     })) : []
                 });
 

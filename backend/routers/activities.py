@@ -4,6 +4,7 @@ from typing import List, Optional  # Import typing helpers
 from pydantic import BaseModel  # Import BaseModel for input validation schemas
 from ..database import get_session  # Import DB session dependency
 from ..models import Activity, ActivityProgress, Progress, Child, Parent, Achievement, Notification  # Import all relevant models
+from ..utils.achievements import check_and_award_achievements, get_child_achievement_ids
 from datetime import datetime
 
 # Create router for activity-related endpoints
@@ -90,68 +91,31 @@ def record_progress(submission: ActivitySubmission, session: Session = Depends(g
         )
     
     session.add(activity_progress)
-    
+
     # 5. Update Parent's Total Score
     progress_record.total_score += submission.score
     session.add(progress_record)
-    
-    # Commit final changes
+
+    # Commit base changes
     session.commit()
     session.refresh(activity_progress)
 
     # --- GAMIFICATION ENGINE ---
-    # 6. Check for Achievements
-    achievements_earned = []
-    
-    # A. First Activity Badge
-    # Check if this is the only completed activity
-    completed_count = session.exec(select(ActivityProgress).join(Activity).where(
-        Activity.child_id == child.id, 
-        ActivityProgress.completion_status == "Completed"
-    )).all()
-    
-    if len(completed_count) == 1:
-        # Check if already has badge to avoid duplicates (though logic implies it's first)
-        existing_badge = session.exec(select(Achievement).where(
-            Achievement.child_id == child.id, 
-            Achievement.achievement_name == "First Steps"
-        )).first()
-        
-        if not existing_badge:
-            badge = Achievement(
-                child_id=child.id,
-                achievement_name="First Steps",
-                description="Completed your first activity!",
-                badge_icon="🌟"
-            )
-            session.add(badge)
-            achievements_earned.append(badge)
-
-    # B. Streak Master (Mock logic: if streak > 3)
-    if progress_record.streak_days >= 3:
-        existing_badge = session.exec(select(Achievement).where(
-            Achievement.child_id == child.id,
-            Achievement.achievement_name == "Streak Master"
-        )).first()
-        
-        if not existing_badge:
-            badge = Achievement(
-                child_id=child.id,
-                achievement_name="Streak Master",
-                description="Maintained a 3-day streak!",
-                badge_icon="🔥"
-            )
-            session.add(badge)
-            achievements_earned.append(badge)
+    # 6. Check for Achievements using comprehensive system
+    achievements_earned = check_and_award_achievements(
+        session=session,
+        child=child,
+        activity=activity_record,
+        score=submission.score,
+        duration_seconds=submission.duration_seconds
+    )
 
     # 7. Create Notifications for Parent
-    # Always notify on completion? Or only milestones? Let's do milestones + summary.
-    # For now, simple notification.
     if submission.completed:
-        msg = f"{child.name} completed '{submission.activity_type}' activity!"
+        msg = f"{child.name} completed '{activity_record.activity_name}'!"
         if achievements_earned:
             msg += f" And earned {len(achievements_earned)} badge(s)!"
-            
+
         notification = Notification(
             parent_id=child.parent_id,
             notification_type="Activity Update",
@@ -161,10 +125,8 @@ def record_progress(submission: ActivitySubmission, session: Session = Depends(g
             is_read=False
         )
         session.add(notification)
+        session.commit()
 
-    # Commit Gamification
-    session.commit()
-    
     return activity_progress
 
 # Endpoint to get progress (Needs to join tables now)

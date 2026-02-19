@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from ..database import get_session
 from ..models import Child, Parent, Progress, LearningPlan, Activity, ActivityProgress, Achievement, Assessment
 from ..auth import get_current_user
+from ..utils.achievements import get_child_achievement_ids
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
@@ -175,9 +176,8 @@ def get_dashboard_data(child_id: int, session: Session = Depends(get_session), c
         # For now, count all completed
         activities_this_week = len(session.exec(stmt).all())
 
-    # 6. Fetch Achievements
-    achievements = session.exec(select(Achievement).where(Achievement.child_id == child_id)).all()
-    earned_names = [a.achievement_name for a in achievements]
+    # 6. Fetch Achievements as IDs (for frontend compatibility)
+    achievement_ids = get_child_achievement_ids(session, child_id)
 
     # 7. Get sibling summaries for multi-child view
     siblings = session.exec(
@@ -218,7 +218,7 @@ def get_dashboard_data(child_id: int, session: Session = Depends(get_session), c
         weekly_focus=weekly_focus,
         weekly_progress=weekly_progress,
         activities=activities_list,
-        achievements=earned_names,
+        achievements=achievement_ids,
         skills=skills,
         total_time_spent_minutes=total_time_spent,
         activities_this_week=activities_this_week,

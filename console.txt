@@ -1,17 +1,334 @@
-LearningPlan.jsx:28 
- Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
-    at JSON.parse (<anonymous>)
-    at LearningPlan (LearningPlan.jsx:26:32)
-
-LearningPlan.jsx:28 
- Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
-    at JSON.parse (<anonymous>)
-    at LearningPlan (LearningPlan.jsx:26:32)
-LearningPlan.jsx:28 
- Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
-    at JSON.parse (<anonymous>)
-    at LearningPlan (LearningPlan.jsx:26:32)
-LearningPlan.jsx:28 
- Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
-    at JSON.parse (<anonymous>)
-    at LearningPlan (LearningPlan.jsx:26:32)
+C:\Users\20100\bookv1>python -m uvicorn backend.main:app --reload --port 8000
+←[32mINFO←[0m:     Will watch for changes in these directories: ['C:\\Users\\20100\\bookv1']
+←[32mINFO←[0m:     Uvicorn running on ←[1mhttp://127.0.0.1:8000←[0m (Press CTRL+C to quit)
+←[32mINFO←[0m:     Started reloader process [←[36m←[1m1284←[0m] using ←[36m←[1mWatchFiles←[0m
+←[32mINFO←[0m:     Started server process [←[36m16040←[0m]
+←[32mINFO←[0m:     Waiting for application startup.
+2026-02-19 18:52:30,024 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:30,024 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("parent")
+2026-02-19 18:52:30,024 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,041 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("child")
+2026-02-19 18:52:30,041 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,062 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("assessment")
+2026-02-19 18:52:30,074 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,074 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("assessmentquestion")
+2026-02-19 18:52:30,074 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,091 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("learningplan")
+2026-02-19 18:52:30,091 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,108 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("activity")
+2026-02-19 18:52:30,108 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,108 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("activityprogress")
+2026-02-19 18:52:30,108 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,124 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("progress")
+2026-02-19 18:52:30,124 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,124 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("achievement")
+2026-02-19 18:52:30,143 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,143 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("notification")
+2026-02-19 18:52:30,143 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-02-19 18:52:30,143 INFO sqlalchemy.engine.Engine COMMIT
+←[32mINFO←[0m:     Application startup complete.
+2026-02-19 18:52:33,083 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:33,342 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:33,357 INFO sqlalchemy.engine.Engine [generated in 0.00111s] ('aaa10@gmail.com',)
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\20100\AppData\Roaming\Python\Python311\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+←[32mINFO←[0m:     127.0.0.1:5600 - "←[1mPOST /token HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:34,390 INFO sqlalchemy.engine.Engine ROLLBACK
+←[32mINFO←[0m:     127.0.0.1:5600 - "←[1mOPTIONS /users/1/children HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:34,609 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:34,681 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:34,745 INFO sqlalchemy.engine.Engine [cached since 1.392s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:34,775 INFO sqlalchemy.engine.Engine SELECT child.id, child.name, child.date_of_birth, child.current_level, child.native_language, child.age, child.parent_id
+FROM child
+WHERE child.parent_id = ?
+2026-02-19 18:52:34,828 INFO sqlalchemy.engine.Engine [generated in 0.05360s] (1,)
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mGET /users/1/children HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:34,877 INFO sqlalchemy.engine.Engine ROLLBACK
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mOPTIONS /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mOPTIONS /dashboard/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mOPTIONS /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:35,479 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:35,496 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:35,496 INFO sqlalchemy.engine.Engine [cached since 2.149s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:35,515 INFO sqlalchemy.engine.Engine SELECT notification.id, notification.notification_type, notification.message, notification.notification_data, notification.scheduled_time, notification.sent_time, notification.is_read, notification.parent_id
+FROM notification
+WHERE notification.parent_id = ? ORDER BY notification.sent_time DESC
+2026-02-19 18:52:35,515 INFO sqlalchemy.engine.Engine [generated in 0.00100s] (1,)
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mGET /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:35,529 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-19 18:52:35,594 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:35,643 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:35,643 INFO sqlalchemy.engine.Engine [cached since 2.296s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:35,660 INFO sqlalchemy.engine.Engine SELECT child.id AS child_id, child.name AS child_name, child.date_of_birth AS child_date_of_birth, child.current_level AS child_current_level, child.native_language AS child_native_language, child.age AS child_age, child.parent_id AS child_parent_id
+FROM child
+WHERE child.id = ?
+2026-02-19 18:52:35,660 INFO sqlalchemy.engine.Engine [generated in 0.00088s] (1,)
+2026-02-19 18:52:35,676 INFO sqlalchemy.engine.Engine SELECT progress.id, progress.total_score, progress.streak_days, progress.parent_id
+FROM progress
+WHERE progress.parent_id = ?
+2026-02-19 18:52:35,676 INFO sqlalchemy.engine.Engine [generated in 0.01154s] (1,)
+2026-02-19 18:52:35,698 INFO sqlalchemy.engine.Engine SELECT assessment.id AS assessment_id, assessment.child_id AS assessment_child_id, assessment.assessment_type AS assessment_assessment_type, assessment.total_questions AS assessment_total_questions, assessment.correct_answers AS assessment_correct_answers, assessment.accuracy_percentage AS assessment_accuracy_percentage, assessment.assessment_date AS assessment_assessment_date, assessment.skill_level_result AS assessment_skill_level_result, assessment.is_initial AS assessment_is_initial
+FROM assessment
+WHERE ? = assessment.child_id
+2026-02-19 18:52:35,710 INFO sqlalchemy.engine.Engine [generated in 0.01845s] (1,)
+2026-02-19 18:52:35,749 INFO sqlalchemy.engine.Engine SELECT learningplan.id AS learningplan_id, learningplan.assessment_id AS learningplan_assessment_id, learningplan.plan_created_date AS learningplan_plan_created_date, learningplan.duration_weeks AS learningplan_duration_weeks, learningplan.plan_start_date AS learningplan_plan_start_date, learningplan.status AS learningplan_status, learningplan.plan_end_date AS learningplan_plan_end_date, learningplan.focus_areas AS learningplan_focus_areas, learningplan.weekly_goals AS learningplan_weekly_goals
+FROM learningplan
+WHERE ? = learningplan.assessment_id
+2026-02-19 18:52:35,749 INFO sqlalchemy.engine.Engine [generated in 0.00114s] (5,)
+2026-02-19 18:52:35,762 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:35,777 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:35,778 INFO sqlalchemy.engine.Engine SELECT activity.id AS activity_id, activity.activity_type AS activity_activity_type, activity.activity_name AS activity_activity_name, activity.activity_content AS activity_activity_content, activity.estimated_duration_minutes AS activity_estimated_duration_minutes, activity.language AS activity_language, activity.difficulty_level AS activity_difficulty_level, activity.plan_id AS activity_plan_id, activity.child_id AS activity_child_id
+FROM activity
+WHERE ? = activity.plan_id
+2026-02-19 18:52:35,778 INFO sqlalchemy.engine.Engine [generated in 0.00311s] (5,)
+2026-02-19 18:52:35,778 INFO sqlalchemy.engine.Engine [cached since 2.427s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:35,793 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,793 INFO sqlalchemy.engine.Engine SELECT notification.id, notification.notification_type, notification.message, notification.notification_data, notification.scheduled_time, notification.sent_time, notification.is_read, notification.parent_id
+FROM notification
+WHERE notification.parent_id = ? ORDER BY notification.sent_time DESC
+2026-02-19 18:52:35,827 INFO sqlalchemy.engine.Engine [generated in 0.03565s] (51, 1)
+2026-02-19 18:52:35,894 INFO sqlalchemy.engine.Engine [cached since 0.3673s ago] (1,)
+2026-02-19 18:52:35,913 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,913 INFO sqlalchemy.engine.Engine [cached since 0.1206s ago] (52, 1)
+←[32mINFO←[0m:     127.0.0.1:5609 - "←[1mGET /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:35,930 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,930 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-02-19 18:52:35,930 INFO sqlalchemy.engine.Engine [cached since 0.1365s ago] (53, 1)
+2026-02-19 18:52:35,944 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,944 INFO sqlalchemy.engine.Engine [cached since 0.1509s ago] (54, 1)
+2026-02-19 18:52:35,944 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,944 INFO sqlalchemy.engine.Engine [cached since 0.1544s ago] (55, 1)
+2026-02-19 18:52:35,961 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,961 INFO sqlalchemy.engine.Engine [cached since 0.1664s ago] (56, 1)
+2026-02-19 18:52:35,961 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,961 INFO sqlalchemy.engine.Engine [cached since 0.1701s ago] (57, 1)
+2026-02-19 18:52:35,979 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,979 INFO sqlalchemy.engine.Engine [cached since 0.1825s ago] (58, 1)
+2026-02-19 18:52:35,979 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:35,979 INFO sqlalchemy.engine.Engine [cached since 0.1858s ago] (59, 1)
+2026-02-19 18:52:35,999 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,013 INFO sqlalchemy.engine.Engine [cached since 0.2183s ago] (60, 1)
+2026-02-19 18:52:36,026 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,044 INFO sqlalchemy.engine.Engine [cached since 0.2468s ago] (61, 1)
+2026-02-19 18:52:36,060 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,076 INFO sqlalchemy.engine.Engine [cached since 0.2714s ago] (62, 1)
+2026-02-19 18:52:36,077 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,092 INFO sqlalchemy.engine.Engine [cached since 0.2976s ago] (63, 1)
+2026-02-19 18:52:36,109 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,109 INFO sqlalchemy.engine.Engine [cached since 0.3159s ago] (64, 1)
+2026-02-19 18:52:36,127 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,127 INFO sqlalchemy.engine.Engine [cached since 0.3377s ago] (65, 1)
+2026-02-19 18:52:36,160 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,176 INFO sqlalchemy.engine.Engine [cached since 0.3813s ago] (66, 1)
+2026-02-19 18:52:36,176 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,228 INFO sqlalchemy.engine.Engine [cached since 0.432s ago] (67, 1)
+2026-02-19 18:52:36,261 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,277 INFO sqlalchemy.engine.Engine [cached since 0.4821s ago] (68, 1)
+2026-02-19 18:52:36,309 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,309 INFO sqlalchemy.engine.Engine [cached since 0.5173s ago] (69, 1)
+2026-02-19 18:52:36,342 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,349 INFO sqlalchemy.engine.Engine [cached since 0.5524s ago] (70, 1)
+2026-02-19 18:52:36,394 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,428 INFO sqlalchemy.engine.Engine [cached since 0.6355s ago] (71, 1)
+2026-02-19 18:52:36,541 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,593 INFO sqlalchemy.engine.Engine [cached since 0.8011s ago] (72, 1)
+2026-02-19 18:52:36,626 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,678 INFO sqlalchemy.engine.Engine [cached since 0.8833s ago] (73, 1)
+2026-02-19 18:52:36,692 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,709 INFO sqlalchemy.engine.Engine [cached since 0.9187s ago] (74, 1)
+2026-02-19 18:52:36,744 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,776 INFO sqlalchemy.engine.Engine [cached since 0.9852s ago] (75, 1)
+2026-02-19 18:52:36,798 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,835 INFO sqlalchemy.engine.Engine [cached since 1.036s ago] (76, 1)
+2026-02-19 18:52:36,849 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,864 INFO sqlalchemy.engine.Engine [cached since 1.065s ago] (77, 1)
+2026-02-19 18:52:36,873 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,873 INFO sqlalchemy.engine.Engine [cached since 1.084s ago] (78, 1)
+2026-02-19 18:52:36,910 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,923 INFO sqlalchemy.engine.Engine [cached since 1.121s ago] (79, 1)
+2026-02-19 18:52:36,923 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,943 INFO sqlalchemy.engine.Engine [cached since 1.151s ago] (80, 1)
+2026-02-19 18:52:36,964 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:36,973 INFO sqlalchemy.engine.Engine [cached since 1.186s ago] (81, 1)
+2026-02-19 18:52:36,990 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,018 INFO sqlalchemy.engine.Engine [cached since 1.218s ago] (82, 1)
+2026-02-19 18:52:37,023 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,040 INFO sqlalchemy.engine.Engine [cached since 1.251s ago] (83, 1)
+2026-02-19 18:52:37,056 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,073 INFO sqlalchemy.engine.Engine [cached since 1.283s ago] (84, 1)
+2026-02-19 18:52:37,092 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,140 INFO sqlalchemy.engine.Engine [cached since 1.351s ago] (85, 1)
+2026-02-19 18:52:37,170 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,178 INFO sqlalchemy.engine.Engine [cached since 1.378s ago] (86, 1)
+2026-02-19 18:52:37,183 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,185 INFO sqlalchemy.engine.Engine [cached since 1.386s ago] (87, 1)
+2026-02-19 18:52:37,199 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,199 INFO sqlalchemy.engine.Engine [cached since 1.404s ago] (88, 1)
+2026-02-19 18:52:37,206 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,206 INFO sqlalchemy.engine.Engine [cached since 1.419s ago] (89, 1)
+2026-02-19 18:52:37,224 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,251 INFO sqlalchemy.engine.Engine [cached since 1.452s ago] (90, 1)
+2026-02-19 18:52:37,257 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,257 INFO sqlalchemy.engine.Engine [cached since 1.47s ago] (91, 1)
+2026-02-19 18:52:37,273 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.activity_id = ? AND activityprogress.progress_id = ?
+2026-02-19 18:52:37,291 INFO sqlalchemy.engine.Engine [cached since 1.5s ago] (92, 1)
+2026-02-19 18:52:37,317 INFO sqlalchemy.engine.Engine SELECT assessmentquestion.id AS assessmentquestion_id, assessmentquestion.assessment_id AS assessmentquestion_assessment_id, assessmentquestion.question_type AS assessmentquestion_question_type, assessmentquestion.question_content AS assessmentquestion_question_content, assessmentquestion.child_answer AS assessmentquestion_child_answer, assessmentquestion.correct_answer AS assessmentquestion_correct_answer, assessmentquestion.time_spent_seconds AS assessmentquestion_time_spent_seconds, assessmentquestion.is_correct AS assessmentquestion_is_correct
+FROM assessmentquestion
+WHERE ? = assessmentquestion.assessment_id
+2026-02-19 18:52:37,326 INFO sqlalchemy.engine.Engine [generated in 0.00966s] (5,)
+2026-02-19 18:52:37,344 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress
+WHERE activityprogress.progress_id = ? AND activityprogress.completion_status = ?
+2026-02-19 18:52:37,351 INFO sqlalchemy.engine.Engine [generated in 0.00711s] (1, 'Completed')
+2026-02-19 18:52:37,407 INFO sqlalchemy.engine.Engine SELECT achievement.id, achievement.achievement_name, achievement.description, achievement.badge_icon, achievement.child_id
+FROM achievement
+WHERE achievement.child_id = ?
+2026-02-19 18:52:37,439 INFO sqlalchemy.engine.Engine [generated in 0.02680s] (1,)
+2026-02-19 18:52:37,472 INFO sqlalchemy.engine.Engine SELECT child.id, child.name, child.date_of_birth, child.current_level, child.native_language, child.age, child.parent_id
+FROM child
+WHERE child.parent_id = ? AND child.id != ?
+2026-02-19 18:52:37,490 INFO sqlalchemy.engine.Engine [generated in 0.01544s] (1, 1)
+2026-02-19 18:52:37,506 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress JOIN activity ON activity.id = activityprogress.activity_id
+WHERE activity.child_id = ?
+2026-02-19 18:52:37,522 INFO sqlalchemy.engine.Engine [generated in 0.01016s] (2,)
+2026-02-19 18:52:37,540 INFO sqlalchemy.engine.Engine SELECT activityprogress.id, activityprogress.activity_id, activityprogress.progress_id, activityprogress.completion_status, activityprogress.total_time_spent_minutes
+FROM activityprogress JOIN activity ON activity.id = activityprogress.activity_id
+WHERE activity.child_id = ?
+2026-02-19 18:52:37,540 INFO sqlalchemy.engine.Engine [cached since 0.03178s ago] (3,)
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mGET /dashboard/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:37,556 INFO sqlalchemy.engine.Engine ROLLBACK
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mOPTIONS /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+←[32mINFO←[0m:     127.0.0.1:5609 - "←[1mOPTIONS /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:38,609 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:38,629 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:38,629 INFO sqlalchemy.engine.Engine [cached since 5.283s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:38,644 INFO sqlalchemy.engine.Engine SELECT notification.id, notification.notification_type, notification.message, notification.notification_data, notification.scheduled_time, notification.sent_time, notification.is_read, notification.parent_id
+FROM notification
+WHERE notification.parent_id = ? ORDER BY notification.sent_time DESC
+2026-02-19 18:52:38,650 INFO sqlalchemy.engine.Engine [cached since 3.132s ago] (1,)
+2026-02-19 18:52:38,650 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:52:38,650 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:52:38,661 INFO sqlalchemy.engine.Engine [cached since 5.31s ago] ('aaa10@gmail.com',)
+2026-02-19 18:52:38,661 INFO sqlalchemy.engine.Engine SELECT notification.id, notification.notification_type, notification.message, notification.notification_data, notification.scheduled_time, notification.sent_time, notification.is_read, notification.parent_id
+FROM notification
+WHERE notification.parent_id = ? ORDER BY notification.sent_time DESC
+←[32mINFO←[0m:     127.0.0.1:5601 - "←[1mGET /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:38,677 INFO sqlalchemy.engine.Engine [cached since 3.165s ago] (1,)
+2026-02-19 18:52:38,677 INFO sqlalchemy.engine.Engine ROLLBACK
+←[32mINFO←[0m:     127.0.0.1:5609 - "←[1mGET /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:52:38,696 INFO sqlalchemy.engine.Engine ROLLBACK
+←[32mINFO←[0m:     127.0.0.1:5610 - "←[1mOPTIONS /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:53:08,546 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-19 18:53:08,556 INFO sqlalchemy.engine.Engine SELECT parent.id, parent.name, parent.email, parent.phone_number, parent.password_hash
+FROM parent
+WHERE parent.email = ?
+2026-02-19 18:53:08,561 INFO sqlalchemy.engine.Engine [cached since 35.21s ago] ('aaa10@gmail.com',)
+2026-02-19 18:53:08,568 INFO sqlalchemy.engine.Engine SELECT notification.id, notification.notification_type, notification.message, notification.notification_data, notification.scheduled_time, notification.sent_time, notification.is_read, notification.parent_id
+FROM notification
+WHERE notification.parent_id = ? ORDER BY notification.sent_time DESC
+2026-02-19 18:53:08,571 INFO sqlalchemy.engine.Engine [cached since 33.05s ago] (1,)
+←[32mINFO←[0m:     127.0.0.1:5610 - "←[1mGET /notifications/1 HTTP/1.1←[0m" ←[32m200 OK←[0m
+2026-02-19 18:53:08,578 INFO sqlalchemy.engine.Engine ROLLBACK

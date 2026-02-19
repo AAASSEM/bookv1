@@ -46,158 +46,306 @@ class AssessmentResult(BaseModel):
 # ==================== HELPER FUNCTIONS ====================
 
 def generate_weekly_goals(level: str, skill_analyses: List[SkillAnalysis], duration_weeks: int) -> str:
-    """Generate JSON string of weekly goals based on child's level and skills"""
+    """Generate PERSONALIZED weekly goals based on child's specific skill weaknesses"""
     weekly_goals = []
 
+    # Identify the 2 weakest skills for this child
+    weak_skills = sorted(
+        [s for s in skill_analyses if s.status in ["Needs Work", "Learning"]],
+        key=lambda x: x.mastery_percentage
+    )[:2]
+
+    # Identify strongest skills
+    strong_skills = [s for s in skill_analyses if s.status == "Mastered"]
+
+    # Create personalized plan based on actual weaknesses
     for week in range(1, duration_weeks + 1):
+        # Focus on the weakest skill first
+        primary_weakness = weak_skills[0] if weak_skills else None
+        secondary_weakness = weak_skills[1] if len(weak_skills) > 1 else None
+
         if level == "Beginner":
             if week <= 2:
-                weekly_goals.append({
-                    "week": week,
-                    "title": "Letter Recognition Mastery",
-                    "goals": [
-                        "Practice identifying 5 new letters daily",
-                        "Complete 3 Letter Hunt games",
-                        "Trace 10 letters per day"
-                    ],
-                    "focus": "letter_recognition"
-                })
+                # Always start with letter recognition if it's weak
+                if primary_weakness and "Letter" in primary_weakness.skill_name:
+                    weekly_goals.append({
+                        "week": week,
+                        "title": f"Mastering {primary_weakness.skill_name}",
+                        "goals": [
+                            f"Practice {primary_weakness.skill_name.lower()} 15 min daily",
+                            f"Focus on letters you struggled with in the assessment",
+                            "Complete Letter Hunt games twice daily",
+                            "Trace each letter 5 times while saying the sound"
+                        ],
+                        "focus": "letter_recognition",
+                        "personalized": True
+                    })
+                else:
+                    weekly_goals.append({
+                        "week": week,
+                        "title": f"Strengthening {primary_weakness.skill_name if primary_weakness else 'Basic Skills'}",
+                        "goals": [
+                            f"Practice {primary_weakness.skill_name.lower() if primary_weakness else 'letters'} for 20 min daily",
+                            "Use flashcards for quick recognition",
+                            "Play alphabet games and songs",
+                            "Complete 3 Letter Hunt activities daily"
+                        ],
+                        "focus": primary_weakness.skill_name.lower().replace(" ", "_") if primary_weakness else "letter_recognition",
+                        "personalized": True
+                    })
+
             elif week <= 4:
-                weekly_goals.append({
-                    "week": week,
-                    "title": "Beginning Phonics",
-                    "goals": [
-                        "Learn 3 letter sounds per week",
-                        "Match sounds to pictures",
-                        "Sing alphabet songs daily"
-                    ],
-                    "focus": "phonics"
-                })
+                # Focus on phonics if it's weak, otherwise continue with current skill
+                if secondary_weakness and "Phonics" in secondary_weakness.skill_name:
+                    weekly_goals.append({
+                        "week": week,
+                        "title": f"Building {secondary_weakness.skill_name}",
+                        "goals": [
+                            f"Learn one new letter sound per day",
+                            f"Practice sounds you found difficult: {', '.join([s.skill_name for s in weak_skills])}",
+                            "Match sounds to pictures in Phonics Match",
+                            "Sing phonics songs daily"
+                        ],
+                        "focus": "phonics",
+                        "personalized": True
+                    })
+                else:
+                    weekly_goals.append({
+                        "week": week,
+                        "title": f"Advancing {primary_weakness.skill_name if primary_weakness else 'Reading Skills'}",
+                        "goals": [
+                            f"15 min daily practice on {primary_weakness.skill_name.lower() if primary_weakness else 'letters'}",
+                            "Introduce simple words with known letters",
+                            "Read alphabet books together",
+                            "Play letter recognition games"
+                        ],
+                        "focus": primary_weakness.skill_name.lower().replace(" ", "_") if primary_weakness else "letter_recognition",
+                        "personalized": True
+                    })
+
             elif week <= 6:
+                # Move to rhyming or continue strengthening weak skills
                 weekly_goals.append({
                     "week": week,
-                    "title": "Simple Rhyming",
+                    "title": "Exploring Word Patterns",
                     "goals": [
-                        "Identify rhyming words in stories",
-                        "Play rhyming games",
-                        "Create word families"
+                        "Find rhyming words in stories",
+                        "Play rhyming games for 10 min daily",
+                        "Create word families (cat, hat, mat, sat)",
+                        "Clap out syllables in words"
                     ],
-                    "focus": "rhyming"
+                    "focus": "rhyming",
+                    "personalized": True
                 })
+
             else:
+                # Reading readiness
                 weekly_goals.append({
                     "week": week,
-                    "title": "Reading Readiness",
+                    "title": "Preparing to Read",
                     "goals": [
-                        "Read simple words",
-                        "Practice sight words",
-                        "Complete comprehension activities"
+                        "Read simple sight words daily",
+                        "Practice letter blending: c-a-t = cat",
+                        "Read 3 short picture books daily",
+                        "Discuss what happened in the story"
                     ],
-                    "focus": "reading_fluency"
+                    "focus": "reading_fluency",
+                    "personalized": True
                 })
 
         elif level == "Intermediate":
             if week <= 2:
+                # Focus on the weakest skill
+                target_skill = primary_weakness if primary_weakness else skill_analyses[0]
+
                 weekly_goals.append({
                     "week": week,
-                    "title": "Phonics Reinforcement",
+                    "title": f"Intensive {target_skill.skill_name} Practice",
                     "goals": [
-                        "Master all letter sounds",
-                        "Blend simple sounds (CVC words)",
-                        "Complete 4 Phonics Match games"
+                        f"Your assessment showed {target_skill.skill_name.lower()} needs work",
+                        f"Practice this skill for 25 min daily",
+                        "Complete targeted activities",
+                        f"Goal: Improve from {target_skill.mastery_percentage}% to 70%+"
                     ],
-                    "focus": "phonics"
+                    "focus": target_skill.skill_name.lower().replace(" ", "_"),
+                    "personalized": True
                 })
+
             elif week <= 4:
+                # Word building based on weaknesses
                 weekly_goals.append({
                     "week": week,
-                    "title": "Word Building",
+                    "title": "Building Words & Sentences",
                     "goals": [
-                        "Build 3-letter words",
-                        "Practice common word families",
-                        "Read simple sentences"
+                        "Build 5 new CVC words daily",
+                        "Practice word families you struggled with",
+                        "Read simple sentences with known words",
+                        "Write 3 simple sentences daily"
                     ],
-                    "focus": "phonics"
+                    "focus": "word_building",
+                    "personalized": True
                 })
+
             else:
                 weekly_goals.append({
                     "week": week,
-                    "title": "Reading Practice",
+                    "title": "Reading Fluency Practice",
                     "goals": [
-                        "Read 5 short stories",
+                        "Read one short story daily",
+                        "Practice reading aloud for 5 min",
                         "Answer comprehension questions",
-                        "Practice reading aloud"
+                        f"Focus on {secondary_weakness.skill_name.lower() if secondary_weakness else 'phonics'} while reading"
                     ],
-                    "focus": "reading_fluency"
+                    "focus": "reading_fluency",
+                    "personalized": True
                 })
 
         else:  # Advanced
             if week <= 3:
+                target_skill = primary_weakness if primary_weakness else skill_analyses[0]
+
                 weekly_goals.append({
                     "week": week,
-                    "title": "Advanced Phonics",
+                    "title": f"Advanced {target_skill.skill_name} Mastery",
                     "goals": [
-                        "Master complex letter patterns",
+                        f"Based on your assessment: {target_skill.mastery_percentage}% in {target_skill.skill_name}",
+                        "Practice complex letter patterns",
                         "Read multi-syllable words",
-                        "Practice pronunciation"
+                        f"Goal: Reach 90% mastery in {target_skill.skill_name.lower()}"
                     ],
-                    "focus": "phonics"
+                    "focus": target_skill.skill_name.lower().replace(" ", "_"),
+                    "personalized": True
                 })
+
             else:
                 weekly_goals.append({
                     "week": week,
                     "title": "Fluency & Comprehension",
                     "goals": [
-                        "Read chapter books",
-                        "Discuss story elements",
-                        "Write simple sentences"
+                        "Read chapter books for 20 min daily",
+                        "Discuss: characters, plot, setting",
+                        "Practice expression while reading",
+                        "Write about what you read"
                     ],
-                    "focus": "reading_fluency"
+                    "focus": "reading_fluency",
+                    "personalized": True
                 })
 
     return json.dumps(weekly_goals)
 
 
 def generate_week_activities(week_num: int, level: str, skill_analyses: List[SkillAnalysis], child_id: int, plan_id: int) -> List[Activity]:
-    """Generate a week's worth of activities based on the week number and child's level"""
+    """Generate PERSONALIZED activities based on child's specific skill weaknesses"""
     activities = []
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+    # Identify weakest skill
+    weak_skills = sorted(
+        [s for s in skill_analyses if s.status in ["Needs Work", "Learning"]],
+        key=lambda x: x.mastery_percentage
+    )
+    primary_weakness = weak_skills[0] if weak_skills else None
 
     for day_num, day in enumerate(days, 1):
         if level == "Beginner":
             if week_num <= 2:
-                if day_num % 2 == 0:
+                # Focus on letter recognition if it's weak
+                if primary_weakness and "Letter" in primary_weakness.skill_name:
+                    if day_num % 2 == 0:
+                        activities.append(Activity(
+                            plan_id=plan_id, child_id=child_id, activity_type="Game",
+                            activity_name=f"Letter Hunt - Day {day_num}",
+                            activity_content=f"Find and identify letters (Focus: {primary_weakness.skill_name})",
+                            estimated_duration_minutes=15, difficulty_level="Easy"
+                        ))
+                    else:
+                        activities.append(Activity(
+                            plan_id=plan_id, child_id=child_id, activity_type="Tracing",
+                            activity_name=f"Letter Tracing - Day {day_num}",
+                            activity_content=f"Trace letters while saying sounds ({primary_weakness.skill_name})",
+                            estimated_duration_minutes=12, difficulty_level="Easy"
+                        ))
+                else:
                     activities.append(Activity(
                         plan_id=plan_id, child_id=child_id, activity_type="Game",
-                        activity_name=f"Letter Hunt - Week {week_num} Day {day_num}",
-                        activity_content=f"Find letters", estimated_duration_minutes=10, difficulty_level="Easy"
+                        activity_name=f"Phonics Match - Day {day_num}",
+                        activity_content=f"Match sounds to letters (Week {week_num})",
+                        estimated_duration_minutes=12, difficulty_level="Easy"
+                    ))
+
+            elif week_num <= 4:
+                # Phonics focus
+                if primary_weakness and "Phonics" in primary_weakness.skill_name:
+                    activities.append(Activity(
+                        plan_id=plan_id, child_id=child_id, activity_type="Game",
+                        activity_name=f"Phonics Practice - Day {day_num}",
+                        activity_content=f"Practice letter sounds you found difficult (Target: 70% mastery)",
+                        estimated_duration_minutes=15, difficulty_level="Easy"
                     ))
                 else:
                     activities.append(Activity(
+                        plan_id=plan_id, child_id=child_id, activity_type="Game",
+                        activity_name=f"Letter Hunt - Day {day_num}",
+                        activity_content="Find letters and match sounds",
+                        estimated_duration_minutes=12, difficulty_level="Easy"
+                    ))
+
+            else:
+                activities.append(Activity(
+                    plan_id=plan_id, child_id=child_id, activity_type="Reading",
+                    activity_name=f"Story Time - Day {day_num}",
+                    activity_content=f"Read simple {day} story together",
+                    estimated_duration_minutes=15, difficulty_level="Easy"
+                ))
+
+        elif level == "Intermediate":
+            # Personalize based on weakness
+            if primary_weakness:
+                skill_focus = primary_weakness.skill_name
+                if day_num % 3 == 0:
+                    activities.append(Activity(
+                        plan_id=plan_id, child_id=child_id, activity_type="Game",
+                        activity_name=f"{skill_focus} Challenge - Day {day_num}",
+                        activity_content=f"Targeted practice on {skill_focus} (Current: {primary_weakness.mastery_percentage}%, Goal: 80%)",
+                        estimated_duration_minutes=18, difficulty_level="Medium"
+                    ))
+                elif day_num % 3 == 1:
+                    activities.append(Activity(
                         plan_id=plan_id, child_id=child_id, activity_type="Tracing",
-                        activity_name=f"Trace Letters - Week {week_num} Day {day_num}",
-                        activity_content=f"Trace letters", estimated_duration_minutes=15, difficulty_level="Easy"
+                        activity_name=f"Word Tracing - Day {day_num}",
+                        activity_content=f"Trace CVC words focusing on {skill_focus}",
+                        estimated_duration_minutes=12, difficulty_level="Medium"
+                    ))
+                else:
+                    activities.append(Activity(
+                        plan_id=plan_id, child_id=child_id, activity_type="Reading",
+                        activity_name=f"Reading Practice - Day {day_num}",
+                        activity_content=f"Read simple sentences applying {skill_focus}",
+                        estimated_duration_minutes=15, difficulty_level="Medium"
                     ))
             else:
                 activities.append(Activity(
                     plan_id=plan_id, child_id=child_id, activity_type="Game",
-                    activity_name=f"Practice Activity - Week {week_num} Day {day_num}",
-                    activity_content="Daily practice", estimated_duration_minutes=10, difficulty_level="Easy"
+                    activity_name=f"Phonics Game - Day {day_num}",
+                    activity_content="Practice phonics and word building",
+                    estimated_duration_minutes=15, difficulty_level="Medium"
                 ))
 
-        elif level == "Intermediate":
-            activities.append(Activity(
-                plan_id=plan_id, child_id=child_id, activity_type="Game",
-                activity_name=f"Phonics Game - Week {week_num} Day {day_num}",
-                activity_content="Practice phonics", estimated_duration_minutes=15, difficulty_level="Medium"
-            ))
-
         else:  # Advanced
-            activities.append(Activity(
-                plan_id=plan_id, child_id=child_id, activity_type="Reading",
-                activity_name=f"Reading Practice - Week {week_num} Day {day_num}",
-                activity_content="Read and comprehend", estimated_duration_minutes=20, difficulty_level="Hard"
-            ))
+            if primary_weakness:
+                activities.append(Activity(
+                    plan_id=plan_id, child_id=child_id, activity_type="Game",
+                    activity_name=f"{primary_weakness.skill_name} Mastery - Day {day_num}",
+                    activity_content=f"Advanced practice on {primary_weakness.skill_name} (Target: 90% mastery)",
+                    estimated_duration_minutes=20, difficulty_level="Hard"
+                ))
+            else:
+                activities.append(Activity(
+                    plan_id=plan_id, child_id=child_id, activity_type="Reading",
+                    activity_name=f"Chapter Reading - Day {day_num}",
+                    activity_content=f"Read chapter {(week_num * 7 + day_num) // 14}",
+                    estimated_duration_minutes=25, difficulty_level="Hard"
+                ))
 
     return activities
 
