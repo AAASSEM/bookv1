@@ -1,0 +1,128 @@
+Artificial Intelligence
+Data Science
+Cybersecurity
+Internet of Things
+Embedded Systems
+Blockchain
+Augmented Reality
+Virtual Reality
+Machine Learning
+Deep Learning
+Natural Language Processing
+Computer Vision
+Healthcare
+Pharmacy
+Medical Technology
+Education
+E-Learning
+Finance
+Banking
+Accounting
+Economics
+Marketing
+Business Administration
+E-Commerce
+Human Resources
+Logistics
+Energy
+Agriculture
+Environmental Science
+Transportation
+Tourism
+Media
+Journalism
+Law
+Psychology
+Sociology
+Political Science
+History
+Design
+Graphic Design
+Interior Design
+Game Development
+Music
+Film
+Art
+Web Application
+Mobile Application
+Desktop Application
+API Development
+Embedded System
+Automation System
+Game
+Machine Learning Model
+Al Chatbot
+
+Management System
+Recommendation System
+Simulation System
+PHP
+Laravel
+Java
+Spring Boot
+Kotlin
+.NET
+C#
+Python
+Django
+Flask
+Node.js Express.js React
+Next.js
+Angular
+Vue.js
+Nuxt.js
+TypeScript
+JavaScript
+HTML
+CSS
+
+Tailwind CSS
+Bootstrap
+SASS
+MySQL
+PostgreSQL
+MongoDB
+Firebase
+SQLite
+Oracle
+Docker
+Kubernetes
+Git
+GitHub
+REST API
+GraphQL
+TensorFlow
+PyTorch
+OpenCV
+Android
+ios
+Flutter
+React Native
+MVVM
+BLOC
+Cubit State Management
+Supabase
+Social Impact
+People with Disabilities
+Disability Support Organization
+Google Maps API
+Blind
+Deaf
+Physical Disability
+B2C
+Environmental Sustainability
+Event Planning
+Hospitality
+Accommodation Booking
+YouTube API
+JWT Authentication
+Swagger
+Postman
+B2B2C
+Price Comparison System
+Decision Support System (DSS)
+Data Analytics
+Price Tracking
+Smart Search & Filter
+Price Drop Alert
+Affiliate Marketing

@@ -1,0 +1,17 @@
+LearningPlan.jsx:28 
+ Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at LearningPlan (LearningPlan.jsx:26:32)
+
+LearningPlan.jsx:28 
+ Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at LearningPlan (LearningPlan.jsx:26:32)
+LearningPlan.jsx:28 
+ Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at LearningPlan (LearningPlan.jsx:26:32)
+LearningPlan.jsx:28 
+ Error parsing weekly_goals: SyntaxError: Unexpected token 'C', "Complete 3"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at LearningPlan (LearningPlan.jsx:26:32)

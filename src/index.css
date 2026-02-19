@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Outfit:wght@400;600;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --color-primary: #FF6B6B;       /* Fun Orange/Red */
+  --color-primary-hover: #ff5252;
+  --color-secondary: #4ECDC4;     /* Calm Teal */
+  --color-accent: #FFE66D;        /* Bright Yellow */
+  --color-dark: #2D3436;
+  --color-light: #F7F9FC;
+  --color-white: #FFFFFF;
+  --color-success: #55efc4;
+  --color-error: #ff7675;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Comic Neue', cursive, sans-serif; /* Child friendly */
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-heading); /* Default to clean font for UI */
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+p.child-text {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+button:active {
+  transform: scale(0.95);
+}
