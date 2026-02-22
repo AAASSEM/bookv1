@@ -1,0 +1,22 @@
+services:
+  # Backend API Service
+  - type: web
+    name: brightbook-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: ALLOWED_ORIGINS
+        value: https://brightbook-frontend.onrender.com,https://brightbook-frontend.onrender.com
+    disk:
+      name: data
+      mountPath: /opt/render/project/data
+      sizeGB: 1
+
+databases:
+  # SQLite will be stored on the disk, but we can also add PostgreSQL
+  - name: brightbook-db
+    databaseName: brightbook
+    user: brightbook

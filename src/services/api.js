@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.DEV ? 'http://localhost:8000' : '';
+// In development, use localhost. In production, use environment variable or empty string for relative URLs
+const API_URL = import.meta.env.DEV
+  ? 'http://localhost:8000'
+  : (import.meta.env.VITE_API_URL || '');
 
 function getAuthHeaders() {
     const token = localStorage.getItem('token');

@@ -16,10 +16,14 @@ def on_startup():
     create_db_and_tables()
 
 # Configure Middleware to allow the frontend to access the API
+# Get allowed origins from environment variable or use defaults
+import os
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    # Allow requests from the local Vite development server
-    allow_origins=["http://localhost:5173"],
+    # Allow requests from production URL and local development
+    allow_origins=allowed_origins,
     # Allow credentials like cookies (if needed in future)
     allow_credentials=True,
     # Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
