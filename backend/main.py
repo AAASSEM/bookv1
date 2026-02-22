@@ -16,7 +16,13 @@ def on_startup():
 # Configure Middleware to allow the frontend to access the API
 # Get allowed origins from environment variable or use defaults
 import os
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if allowed_origins_env:
+    allowed_origins = allowed_origins_env.split(",")
+else:
+    allowed_origins = ["http://localhost:5173"]
+
+print(f"🔴 ALLOWED_ORIGINS: {allowed_origins}")
 
 app.add_middleware(
     CORSMiddleware,

@@ -4,11 +4,24 @@ import os
 # Define the database directory and file
 # Use persistent disk location on Render, fallback to local directory
 database_dir = os.getenv("DATABASE_DIR", "/opt/render/project/data")
-os.makedirs(database_dir, exist_ok=True)
+
+print(f"🔴 Database directory: {database_dir}")
+
+try:
+    os.makedirs(database_dir, exist_ok=True)
+    print(f"🔴 Database directory created/verified")
+except Exception as e:
+    print(f"🔴 Error creating database directory: {e}")
+    # Fallback to current directory
+    database_dir = "."
+    os.makedirs(database_dir, exist_ok=True)
 
 sqlite_file_name = os.path.join(database_dir, "database.db")
 # Create the full connection URL string for SQLite
 sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+print(f"🔴 Database file: {sqlite_file_name}")
+print(f"🔴 Database URL: {sqlite_url}")
 
 # Argument to allow check_same_thread=False, needed for SQLite with FastAPI
 connect_args = {"check_same_thread": False}
