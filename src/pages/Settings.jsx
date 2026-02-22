@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, User, Save, Baby, Lock, Trash2, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
+import { ArrowLeft, User, Save, Baby, Lock, Trash2, Calendar, AlertCircle, CheckCircle, Bell } from 'lucide-react';
 import { getParent, getChildren, updateParent, updateChild, changePassword, deleteChild } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import NotificationSettings from '../components/NotificationSettings';
 
 export default function Settings() {
     const navigate = useNavigate();
-    const { children, setChildren } = useAuth();
+    const { children, setChildren, user } = useAuth();
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('parent');
 
@@ -26,6 +27,13 @@ export default function Settings() {
 
     useEffect(() => {
         loadData();
+
+        // Check URL parameter for tab
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        if (tab === 'notifications') {
+            setActiveTab('notifications');
+        }
     }, []);
 
     const loadData = async () => {
@@ -244,6 +252,24 @@ export default function Settings() {
                     }}
                 >
                     <Baby size={20} /> Children Profiles
+                </button>
+                <button
+                    onClick={() => setActiveTab('notifications')}
+                    style={{
+                        padding: '1rem 1.5rem',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'notifications' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                        fontWeight: 'bold',
+                        color: activeTab === 'notifications' ? 'var(--color-primary)' : '#888',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        gap: '0.5rem',
+                        alignItems: 'center',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <Bell size={20} /> Notifications
                 </button>
             </div>
 
@@ -587,6 +613,10 @@ export default function Settings() {
                         </div>
                     )}
                 </div>
+            )}
+
+            {activeTab === 'notifications' && (
+                <NotificationSettings parentId={user?.id} />
             )}
         </div>
     );

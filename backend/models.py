@@ -14,7 +14,9 @@ class Parent(SQLModel, table=True):
     phone_number: Optional[str] = None
     # Secure hash of the parent's password (never store plain text passwords)
     password_hash: str
-    
+    # Notification preferences (stored as JSON string)
+    notification_data: Optional[str] = None
+
     # Relationship: One parent can have multiple children
     children: List["Child"] = Relationship(back_populates="parent")
     # Relationship: One parent has one progress record (as per ERD, though usually progress is per child)

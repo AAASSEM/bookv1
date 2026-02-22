@@ -113,6 +113,22 @@ export async function markNotificationRead(notificationId) {
     });
 }
 
+export async function getNotificationPreferences(parentId) {
+    const response = await fetch(`${API_URL}/notifications/${parentId}/preferences`, { headers: getAuthHeaders() });
+    if (!response.ok) throw new Error('Failed to fetch notification preferences');
+    return response.json();
+}
+
+export async function saveNotificationPreferences(parentId, preferences) {
+    const response = await fetch(`${API_URL}/notifications/${parentId}/preferences`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(preferences)
+    });
+    if (!response.ok) throw new Error('Failed to save notification preferences');
+    return response.json();
+}
+
 // --- Profile Management ---
 
 export async function getParent(parentId) {

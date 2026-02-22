@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { getDashboardData } from '../services/api';
 import ChildMap from '../components/ChildMap';
 import Badges from '../components/Badges';
-import NotificationBell from '../components/NotificationBell';
+import NotificationCenter from '../components/NotificationCenter';
 import ChildSwitcher from '../components/ChildSwitcher';
 import SkillsChart from '../components/SkillsChart';
 import SiblingCard from '../components/SiblingCard';
 import StatsOverview from '../components/StatsOverview';
 import LearningPlan from '../components/LearningPlan';
-import { Trophy, Calendar, Star, Activity, Baby, BookOpen, Music, Gamepad2, Pencil, PenTool, Book, Settings as SettingsIcon, Users } from 'lucide-react';
+import ProgressCharts from '../components/ProgressCharts';
+import WeeklyReport from '../components/WeeklyReport';
+import { Trophy, Calendar, Star, Activity, Baby, BookOpen, Music, Gamepad2, Pencil, PenTool, Book, Settings as SettingsIcon, Users, BarChart2, FileText } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useAuth } from '../context/AuthContext';
 
 export default function Dashboard() {
     const navigate = useNavigate();
-    const { children, selectedChild, switchChild, loading: authLoading } = useAuth();
+    const { children, selectedChild, switchChild, loading: authLoading, user } = useAuth();
     const [level, setLevel] = useState('Beginner');
     const [learningPlan, setLearningPlan] = useState(null); // Full learning plan with weekly goals
     const [achievements, setAchievements] = useState([]);
@@ -24,6 +26,7 @@ export default function Dashboard() {
     const [childName, setChildName] = useState("Child");
     const [dashboardData, setDashboardData] = useState(null);
     const [showSiblings, setShowSiblings] = useState(false);
+    const [viewMode, setViewMode] = useState('dashboard'); // 'dashboard', 'charts', 'report'
 
     // Initialize plan with default values to prevent crashes
     const [plan, setPlan] = useState({
@@ -200,7 +203,75 @@ export default function Dashboard() {
 
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <ChildSwitcher />
-                    {!isChildMode && <NotificationBell />}
+                    {!isChildMode && <NotificationCenter parentId={user?.id} />}
+
+                    {/* View Mode Buttons - Parent Only */}
+                    {!isChildMode && (
+                        <>
+                            <button
+                                onClick={() => setViewMode('dashboard')}
+                                style={{
+                                    background: viewMode === 'dashboard' ? 'white' : 'rgba(255,255,255,0.3)',
+                                    color: viewMode === 'dashboard' ? '#FF6B6B' : 'white',
+                                    padding: '0.6rem 1.2rem',
+                                    borderRadius: 'var(--radius-full)',
+                                    fontWeight: 'bold',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    transition: 'all 0.3s'
+                                }}
+                                title="Dashboard View"
+                            >
+                                <Activity size={18} />
+                                Dashboard
+                            </button>
+
+                            <button
+                                onClick={() => setViewMode('charts')}
+                                style={{
+                                    background: viewMode === 'charts' ? 'white' : 'rgba(255,255,255,0.3)',
+                                    color: viewMode === 'charts' ? '#FF6B6B' : 'white',
+                                    padding: '0.6rem 1.2rem',
+                                    borderRadius: 'var(--radius-full)',
+                                    fontWeight: 'bold',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    transition: 'all 0.3s'
+                                }}
+                                title="Progress Charts"
+                            >
+                                <BarChart2 size={18} />
+                                Charts
+                            </button>
+
+                            <button
+                                onClick={() => setViewMode('report')}
+                                style={{
+                                    background: viewMode === 'report' ? 'white' : 'rgba(255,255,255,0.3)',
+                                    color: viewMode === 'report' ? '#FF6B6B' : 'white',
+                                    padding: '0.6rem 1.2rem',
+                                    borderRadius: 'var(--radius-full)',
+                                    fontWeight: 'bold',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    transition: 'all 0.3s'
+                                }}
+                                title="Weekly Report"
+                            >
+                                <FileText size={18} />
+                                Report
+                            </button>
+                        </>
+                    )}
 
                     <button
                         onClick={() => {
@@ -273,6 +344,10 @@ export default function Dashboard() {
             {
                 isChildMode ? (
                     <ChildMap level={level} />
+                ) : viewMode === 'charts' ? (
+                    <ProgressCharts dashboardData={dashboardData} />
+                ) : viewMode === 'report' ? (
+                    <WeeklyReport dashboardData={dashboardData} />
                 ) : (
                     <div>
                         {/* Enhanced Stats Overview */}
