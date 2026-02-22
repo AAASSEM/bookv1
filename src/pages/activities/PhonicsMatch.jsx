@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Volume2, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { recordActivityProgress } from '../../services/api';
+import ParentTips from '../../components/ParentTips';
+import ActivityInstructions from '../../components/ActivityInstructions';
+import DevelopmentGuide from '../../components/DevelopmentGuide';
 
 export default function PhonicsMatch() {
     const navigate = useNavigate();
@@ -14,6 +17,11 @@ export default function PhonicsMatch() {
     const [feedback, setFeedback] = useState(null);
     const [showNext, setShowNext] = useState(false);
     const [attempts, setAttempts] = useState(0);
+
+    // Get child data for support tools
+    const childData = JSON.parse(localStorage.getItem('childData') || '{}');
+    const childLevel = childData.level || 'Beginner';
+    const childAge = childData.age || 4;
 
     const questions = [
         {
@@ -472,6 +480,11 @@ export default function PhonicsMatch() {
                     />
                 ))}
             </div>
+
+            {/* Parent Support Tools */}
+            <ParentTips activity="PhonicsMatch" childLevel={childLevel} childAge={childAge} />
+            <ActivityInstructions activity="PhonicsMatch" />
+            <DevelopmentGuide childAge={childAge} childLevel={childLevel} />
         </div>
     );
 }

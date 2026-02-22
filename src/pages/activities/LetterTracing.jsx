@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Eraser, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { recordActivityProgress } from '../../services/api';
+import ParentTips from '../../components/ParentTips';
+import ActivityInstructions from '../../components/ActivityInstructions';
+import DevelopmentGuide from '../../components/DevelopmentGuide';
 
 export default function LetterTracing() {
     const navigate = useNavigate();
@@ -10,6 +13,11 @@ export default function LetterTracing() {
     const { activityId } = location.state || {}; // Get passed ID
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
+
+    // Get child data for support tools
+    const childData = JSON.parse(localStorage.getItem('childData') || '{}');
+    const childLevel = childData.level || 'Beginner';
+    const childAge = childData.age || 4;
 
 
     useEffect(() => {
@@ -196,6 +204,11 @@ export default function LetterTracing() {
             <p style={{ marginTop: '2rem', color: '#7f8c8d', fontFamily: 'Comic Neue' }}>
                 Follow the lines to write the letter!
             </p>
+
+            {/* Parent Support Tools */}
+            <ParentTips activity="LetterTracing" childLevel={childLevel} childAge={childAge} />
+            <ActivityInstructions activity="LetterTracing" />
+            <DevelopmentGuide childAge={childAge} childLevel={childLevel} />
         </div>
     );
 }

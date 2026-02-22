@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, User, Save, Baby, Lock, Trash2, Calendar, AlertCircle, CheckCircle, Bell } from 'lucide-react';
+import { ArrowLeft, User, Save, Baby, Lock, Trash2, Calendar, AlertCircle, CheckCircle, Bell, BookOpen } from 'lucide-react';
 import { getParent, getChildren, updateParent, updateChild, changePassword, deleteChild } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import NotificationSettings from '../components/NotificationSettings';
+import ParentResources from '../components/ParentResources';
 
 export default function Settings() {
     const navigate = useNavigate();
@@ -33,6 +34,8 @@ export default function Settings() {
         const tab = urlParams.get('tab');
         if (tab === 'notifications') {
             setActiveTab('notifications');
+        } else if (tab === 'resources') {
+            setActiveTab('resources');
         }
     }, []);
 
@@ -270,6 +273,24 @@ export default function Settings() {
                     }}
                 >
                     <Bell size={20} /> Notifications
+                </button>
+                <button
+                    onClick={() => setActiveTab('resources')}
+                    style={{
+                        padding: '1rem 1.5rem',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'resources' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                        fontWeight: 'bold',
+                        color: activeTab === 'resources' ? 'var(--color-primary)' : '#888',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        gap: '0.5rem',
+                        alignItems: 'center',
+                        transition: 'all 0.2s'
+                    }}
+                >
+                    <BookOpen size={20} /> Resources
                 </button>
             </div>
 
@@ -617,6 +638,10 @@ export default function Settings() {
 
             {activeTab === 'notifications' && (
                 <NotificationSettings parentId={user?.id} />
+            )}
+
+            {activeTab === 'resources' && (
+                <ParentResources children={childrenList} />
             )}
         </div>
     );

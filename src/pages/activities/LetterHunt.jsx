@@ -3,6 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Star, Volume2, RotateCcw } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { recordActivityProgress } from '../../services/api';
+import ParentTips from '../../components/ParentTips';
+import ActivityInstructions from '../../components/ActivityInstructions';
+import DevelopmentGuide from '../../components/DevelopmentGuide';
 
 export default function LetterHunt() {
     const navigate = useNavigate();
@@ -16,6 +19,11 @@ export default function LetterHunt() {
     const [gameStarted, setGameStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [startTime, setStartTime] = useState(null);
+
+    // Get child data for support tools
+    const childData = JSON.parse(localStorage.getItem('childData') || '{}');
+    const childLevel = childData.level || 'Beginner';
+    const childAge = childData.age || 4;
 
     // Letter bank to choose from
     const letters = 'ABCDEFGHILMNOPRSTUVW'; // Common early-learning letters (removed confusing ones like Q, O, etc.)
@@ -365,6 +373,11 @@ export default function LetterHunt() {
                         💡 Tap all the letters that match <strong>{targetLetter}</strong>!
                     </p>
                 </div>
+
+                {/* Parent Support Tools */}
+                <ParentTips activity="LetterHunt" childLevel={childLevel} childAge={childAge} />
+                <ActivityInstructions activity="LetterHunt" />
+                <DevelopmentGuide childAge={childAge} childLevel={childLevel} />
             </div>
         </>
     );

@@ -4,6 +4,9 @@ import { assessmentQuestions } from '../data/questions';
 import QuestionCard from '../components/QuestionCard';
 import { Sparkles } from 'lucide-react';
 import { submitAssessment } from '../services/api';
+import ParentTips from '../components/ParentTips';
+import ActivityInstructions from '../components/ActivityInstructions';
+import DevelopmentGuide from '../components/DevelopmentGuide';
 
 export default function Assessment() {
     const navigate = useNavigate();
@@ -13,6 +16,11 @@ export default function Assessment() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [questionStartTime, setQuestionStartTime] = useState(Date.now());
     const [answerTimes, setAnswerTimes] = useState({}); // Stores { qId: timeSpent }
+
+    // Get child data for support tools
+    const childData = JSON.parse(localStorage.getItem('childData') || '{}');
+    const childLevel = childData.level || 'Beginner';
+    const childAge = childData.age || 4;
 
     const currentQuestion = assessmentQuestions[currentIndex];
     const progress = ((currentIndex) / assessmentQuestions.length) * 100;
@@ -141,6 +149,11 @@ export default function Assessment() {
                 question={currentQuestion}
                 onAnswer={handleAnswer}
             />
+
+            {/* Parent Support Tools */}
+            <ParentTips activity="Assessment" childLevel={childLevel} childAge={childAge} />
+            <ActivityInstructions activity="Assessment" />
+            <DevelopmentGuide childAge={childAge} childLevel={childLevel} />
         </div>
     );
 }
