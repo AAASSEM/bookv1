@@ -1,7 +1,5 @@
 from fastapi import FastAPI, HTTPException  # Import main FastAPI class
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware for handling cross-origin requests
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 import os
 from .database import create_db_and_tables  # Import DB initialization function
 from .routers import users, activities, assessments, dashboard, notifications, auth  # Import specific API routers
@@ -45,24 +43,25 @@ app.include_router(notifications.router)
 # Register the auth router
 app.include_router(auth.router)
 
-# Serve React App
-# Check if dist exists (it should after build)
-if os.path.isdir("dist"):
-    app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+# Root endpoint
+@app.get("/")
+async def root():
+    return {
+        "message": "BrightBook API",
+        "version": "1.0.0",
+        "status": "running",
+        "docs": "/docs",
+        "endpoints": {
+            "users": "/users",
+            "activities": "/activities",
+            "assessments": "/assessments",
+            "dashboard": "/dashboard",
+            "notifications": "/notifications",
+            "auth": "/auth"
+        }
+    }
 
-    @app.get("/{full_path:path}")
-    async def catch_all(full_path: str):
-        # Allow API requests to pass through (handled by routers above)
-        if full_path.startswith("api"):
-            # This shouldn't happen if routers are matched first, but good safety
-             raise HTTPException(status_code=404, detail="API route not found")
-        
-        # Serve index.html for any other route (SPA)
-        return FileResponse("dist/index.html")
-
-    # Explicit root handler if catch_all doesn't match empty
-    @app.get("/")
-    async def serve_root():
-        return FileResponse("dist/index.html")
-else:
-    print("Warning: 'dist' directory not found. Frontend will not be served.")
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
