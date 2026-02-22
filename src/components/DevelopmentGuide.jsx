@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Baby, TrendingUp, Heart, Brain, BookOpen, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Baby, TrendingUp, Heart, Brain, BookOpen, X, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
 
 export default function DevelopmentGuide({ childAge, childLevel }) {
   const [isOpen, setIsOpen] = useState(false);

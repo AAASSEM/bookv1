@@ -1,7 +1,12 @@
 from sqlmodel import SQLModel, create_engine, Session  # Import SQLModel components for database connection
+import os
 
-# Define the name of the SQLite database file
-sqlite_file_name = "database.db"
+# Define the database directory and file
+# Use persistent disk location on Render, fallback to local directory
+database_dir = os.getenv("DATABASE_DIR", "/opt/render/project/data")
+os.makedirs(database_dir, exist_ok=True)
+
+sqlite_file_name = os.path.join(database_dir, "database.db")
 # Create the full connection URL string for SQLite
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
