@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: brightbook-frontend
+    runtime: static
+    buildCommand: npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://bookv1.onrender.com
+    routes:
+      - type: rewrite
+        src: /.*/
+        dest: /index.html
+        status: 200
